@@ -1,7 +1,7 @@
 <template>
-  <main class="grid grid-rows-3 grid-cols-3">
+  <main class="board">
     <template v-for="cell in cells" :key="cell.id">
-      <BoardCell :cell="cell" />
+      <BoardCell :cell="cell" class="board__cell" />
     </template>
   </main>
 </template>

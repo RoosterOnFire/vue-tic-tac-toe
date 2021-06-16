@@ -1,10 +1,5 @@
 <template>
-  <button
-    :id="cell.id"
-    @click="updateCell"
-    type="button"
-    class="border border-gray-500 h-16"
-  >
+  <button :id="cell.id" @click="updateCell" type="button">
     {{ cell.player }}
   </button>
 </template>

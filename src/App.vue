@@ -1,45 +1,29 @@
 <template>
-  <div
-    class="
-      container
-      max-w-md
-      mx-auto
-      my-4
-      p-4
-      rounded
-      border border-black
-      text-center
-    "
-  >
+  <div class="app">
+    <Header />
     <GameBoard v-if="isGameRunning" />
     <SelectPlayer v-else />
-    <footer class="mt-4 flex justify-evenly">
-      <Button message="Reset" @click="resetGame" />
-    </footer>
   </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from "vue";
 import { useStore } from "./store/store";
-import Button from "./components/Button.vue";
+import Header from "./components/Header.vue";
 import GameBoard from "./components/GameBoard.vue";
 import SelectPlayer from "./components/SelectPlayer.vue";
 
 export default defineComponent({
   components: {
+    Header,
     SelectPlayer,
     GameBoard,
-    Button,
   },
   setup() {
     const store = useStore();
 
     return {
       isGameRunning: computed<boolean>(() => store.getters.isPlayerSelected),
-      resetGame() {
-        store.commit("reset");
-      },
     };
   },
 });

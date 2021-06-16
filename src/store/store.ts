@@ -77,15 +77,7 @@ export const store = createStore<State>({
         state.playerOWinCount += 1;
       }
     },
-    reset(state: State) {
-      state.currentPlayer = '';
-
-      state.playerOWinCount = 0;
-
-      state.playerXWinCount = 0;
-
-      state.isGameOver = false;
-
+    clearBoard(state: State) {
       state.cells.forEach((cell) => (cell.player = ''));
     },
   },
@@ -103,9 +95,20 @@ export const store = createStore<State>({
         commit('switchPlayer');
       } else {
         setTimeout(() => {
-          commit('reset');
+          (state.isGameOver = false), commit('clearBoard');
         }, 1700);
       }
+    },
+    reset({ commit, state }) {
+      state.currentPlayer = '';
+
+      state.playerOWinCount = 0;
+
+      state.playerXWinCount = 0;
+
+      state.isGameOver = false;
+
+      commit('clearBoard');
     },
   },
 });
