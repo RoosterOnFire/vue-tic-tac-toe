@@ -1,15 +1,15 @@
 <template>
   <main class="grid grid-rows-3 grid-cols-3">
     <template v-for="cell in cells" :key="cell.id">
-      <BoardCell :content="cell.player" />
+      <BoardCell :cell="cell" />
     </template>
   </main>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import BoardCell from "./BoardCell.vue";
+import { computed, defineComponent } from "vue";
 import { useStore } from "../store/store";
+import BoardCell from "./BoardCell.vue";
 
 export default defineComponent({
   components: {
@@ -18,10 +18,8 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    const cells = store.state.cells;
-
     return {
-      cells,
+      cells: computed(() => store.state.cells),
     };
   },
 });

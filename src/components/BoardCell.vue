@@ -1,23 +1,36 @@
 <template>
-  <button type="button" class="border border-gray-500 h-16">
-    {{ content }}
+  <button
+    :id="cell.id"
+    @click="updateCell"
+    type="button"
+    class="border border-gray-500 h-16"
+  >
+    {{ cell.player }}
   </button>
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs } from "vue";
+import { Cell, useStore } from "../store/store";
+import { defineComponent, PropType, toRefs } from "vue";
 
 export default defineComponent({
   props: {
-    content: {
-      type: String,
+    cell: {
+      type: Object as PropType<Cell>,
+      required: true,
     },
   },
   setup(props) {
-    const { content } = toRefs(props);
+    const { cell } = toRefs(props);
+    const store = useStore();
+
+    function updateCell() {
+      store.commit("updateCell", cell.value?.id);
+    }
 
     return {
-      content,
+      cell,
+      updateCell,
     };
   },
 });

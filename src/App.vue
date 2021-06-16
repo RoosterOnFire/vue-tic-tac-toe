@@ -11,22 +11,43 @@
       text-center
     "
   >
-    <GameBoard />
-    <Footer class="mt-4" />
+    <GameBoard v-if="isGameRunning" />
+    <SelectPlayer v-else />
+    <footer class="mt-4 flex justify-evenly">
+      <Button message="Reset" @click="resetGame" />
+    </footer>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
+import { useStore } from "./store/store";
+import Button from "./components/Button.vue";
 import GameBoard from "./components/GameBoard.vue";
-import Footer from "./components/Footer.vue";
+import SelectPlayer from "./components/SelectPlayer.vue";
 
 export default defineComponent({
   components: {
+    SelectPlayer,
     GameBoard,
-    Footer,
+    Button,
   },
-  setup() {},
+  setup() {
+    const store = useStore();
+
+    const isGameRunning = computed<boolean>(
+      () => store.getters.isPlayerSelected
+    );
+
+    function resetGame() {
+      store.commit("reset");
+    }
+
+    return {
+      isGameRunning,
+      resetGame,
+    };
+  },
 });
 </script>
 
