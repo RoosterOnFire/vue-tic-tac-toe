@@ -35,17 +35,11 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    const isGameRunning = computed<boolean>(
-      () => store.getters.isPlayerSelected
-    );
-
-    function resetGame() {
-      store.commit("reset");
-    }
-
     return {
-      isGameRunning,
-      resetGame,
+      isGameRunning: computed<boolean>(() => store.getters.isPlayerSelected),
+      resetGame() {
+        store.commit("reset");
+      },
     };
   },
 });

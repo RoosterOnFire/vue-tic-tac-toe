@@ -5,22 +5,7 @@ import {
   Store,
   createLogger,
 } from 'vuex';
-
-type Player = '' | 'X' | 'O';
-
-export type Cell = {
-  id: number;
-  player: Player;
-};
-
-type Cells = Cell[];
-
-export interface State {
-  currentPlayer: Player;
-  playerXWinCount: number;
-  playerOWinCount: number;
-  cells: Cells;
-}
+import { State, Player, Cell } from './types';
 
 export const key: InjectionKey<Store<State>> = Symbol();
 
@@ -30,6 +15,7 @@ export const store = createStore<State>({
     currentPlayer: '',
     playerOWinCount: 0,
     playerXWinCount: 0,
+    isGameOver: false,
     cells: [
       { id: 0, player: '' },
       { id: 1, player: '' },
@@ -51,20 +37,45 @@ export const store = createStore<State>({
     selectPlayer(state: State, player: Player) {
       state.currentPlayer = player;
     },
-    updateCell(state: State, id: number) {
+    switchPlayer(state: State) {
+      state.currentPlayer = state.currentPlayer === 'X' ? 'O' : 'X';
+    },
+    updateCell(state: State, payloadCell: Cell) {
       state.cells.forEach((cell) => {
-        if (id === cell.id && cell.player === '') {
+        if (payloadCell.id === cell.id && payloadCell.player === '') {
           cell.player = state.currentPlayer;
         }
       });
+    },
+    updateGameOver(state: State) {
+      const matchIndex = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6],
+      ]
+        .map((condition) =>
+          condition
+            .map((key) => state.cells[key])
+            .every((value) => value.player === state.currentPlayer)
+        )
+        .indexOf(true);
 
-      state.currentPlayer = state.currentPlayer === 'X' ? 'O' : 'X';
-    },
-    incOWinCount(state: State) {
-      state.playerOWinCount += 1;
-    },
-    incXWinCount(state: State) {
-      state.playerXWinCount += 1;
+      state.isGameOver = matchIndex !== -1;
+
+      if (!state.isGameOver) {
+        return;
+      }
+
+      if (state.currentPlayer === 'X') {
+        state.playerXWinCount += 1;
+      } else if (state.currentPlayer === 'O') {
+        state.playerOWinCount += 1;
+      }
     },
     reset(state: State) {
       state.currentPlayer = '';
@@ -73,7 +84,28 @@ export const store = createStore<State>({
 
       state.playerXWinCount = 0;
 
+      state.isGameOver = false;
+
       state.cells.forEach((cell) => (cell.player = ''));
+    },
+  },
+  actions: {
+    updateGame({ commit, state }, cell: Cell) {
+      if (state.isGameOver) {
+        return;
+      }
+
+      commit('updateCell', cell);
+
+      commit('updateGameOver');
+
+      if (!state.isGameOver) {
+        commit('switchPlayer');
+      } else {
+        setTimeout(() => {
+          commit('reset');
+        }, 1700);
+      }
     },
   },
 });
