@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="grid grid-rows-3 grid-cols-3">
     <template v-for="n in 9" :key="n">
       <BoardCell :content="n" />
     </template>

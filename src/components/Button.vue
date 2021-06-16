@@ -1,5 +1,5 @@
 <template>
-  <button type="button" class="button is-medium" :class="type">
+  <button type="button" class="w-12 h-12 border border-gray-500" :class="type">
     {{ message }}
   </button>
 </template>

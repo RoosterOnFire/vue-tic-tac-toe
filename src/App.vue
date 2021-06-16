@@ -1,10 +1,18 @@
 <template>
-  <div class="container mx-auto">
-    <header>
-      <h1>Tic Tac Toe</h1>
-    </header>
+  <div
+    class="
+      container
+      max-w-md
+      mx-auto
+      my-4
+      p-4
+      rounded
+      border border-black
+      text-center
+    "
+  >
     <GameBoard />
-    <Footer />
+    <Footer class="mt-4" />
   </div>
 </template>
 

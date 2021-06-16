@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <button type="button">{{ content }}</button>
-  </div>
+  <button type="button" class="border border-gray-500 h-16">
+    {{ content }}
+  </button>
 </template>
 
 <script lang="ts">

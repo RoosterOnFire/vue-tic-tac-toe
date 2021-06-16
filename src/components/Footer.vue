@@ -1,5 +1,5 @@
 <template>
-  <footer>
+  <footer class="flex justify-evenly">
     <Button message="X" />
     <Button message="O" />
     <Button message="Reset" />
