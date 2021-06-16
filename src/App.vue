@@ -1,27 +1,32 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <div class="app">
+    <Header />
+    <GameBoard v-if="isGameRunning" />
+    <SelectPlayer v-else />
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
+import { computed, defineComponent } from "vue";
+import { useStore } from "./store/store";
+import Header from "./components/Header.vue";
+import GameBoard from "./components/GameBoard.vue";
+import SelectPlayer from "./components/SelectPlayer.vue";
 
 export default defineComponent({
-  name: 'App',
   components: {
-    HelloWorld
-  }
-})
+    Header,
+    SelectPlayer,
+    GameBoard,
+  },
+  setup() {
+    const store = useStore();
+
+    return {
+      isGameRunning: computed<boolean>(() => store.getters.isPlayerSelected),
+    };
+  },
+});
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style scoped></style>
