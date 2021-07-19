@@ -2,8 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  @apply bg-gray-100;
+}
+
 .app {
-  @apply container max-w-md mx-auto my-4 p-4 rounded border border-black text-center;
+  @apply container max-w-md mx-auto my-4 p-4 text-center shadow-2xl;
 }
 
 .header {
@@ -11,10 +15,11 @@
 }
 
 .header__counter {
+  @apply text-xl;
 }
 
 .header__reset {
-  @apply w-12 h-12 border border-gray-500;
+  @apply w-28 h-12 border border-gray-500 text-xl rounded-lg;
 }
 
 .select-player {
@@ -22,7 +27,7 @@
 }
 
 .select-player__button {
-  @apply w-12 h-12 border border-gray-500;
+  @apply w-20 h-20 border border-gray-500 text-4xl rounded-lg;
 }
 
 .board {
@@ -30,5 +35,9 @@
 }
 
 .board__cell {
-  @apply border border-gray-500 h-16;
+  @apply border border-gray-500 h-24 text-4xl;
+}
+
+.board__cell--win {
+  @apply bg-green-500;
 }

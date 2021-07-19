@@ -17,15 +17,15 @@ export const store = createStore<State>({
     playerXWinCount: 0,
     isGameOver: false,
     cells: [
-      { id: 0, player: '' },
-      { id: 1, player: '' },
-      { id: 2, player: '' },
-      { id: 3, player: '' },
-      { id: 4, player: '' },
-      { id: 5, player: '' },
-      { id: 6, player: '' },
-      { id: 7, player: '' },
-      { id: 8, player: '' },
+      { id: 0, player: '', style: '' },
+      { id: 1, player: '', style: '' },
+      { id: 2, player: '', style: '' },
+      { id: 3, player: '', style: '' },
+      { id: 4, player: '', style: '' },
+      { id: 5, player: '', style: '' },
+      { id: 6, player: '', style: '' },
+      { id: 7, player: '', style: '' },
+      { id: 8, player: '', style: '' },
     ],
   },
   getters: {
@@ -48,7 +48,7 @@ export const store = createStore<State>({
       });
     },
     updateGameOver(state: State) {
-      const matchIndex = [
+      const windConditions = [
         [0, 1, 2],
         [3, 4, 5],
         [6, 7, 8],
@@ -57,7 +57,8 @@ export const store = createStore<State>({
         [2, 5, 8],
         [0, 4, 8],
         [2, 4, 6],
-      ]
+      ];
+      const matchIndex = windConditions
         .map((condition) =>
           condition
             .map((key) => state.cells[key])
@@ -71,6 +72,10 @@ export const store = createStore<State>({
         return;
       }
 
+      windConditions[matchIndex].map(
+        (index) => (state.cells[index].style = 'board__cell--win')
+      );
+
       if (state.currentPlayer === 'X') {
         state.playerXWinCount += 1;
       } else if (state.currentPlayer === 'O') {
@@ -78,7 +83,10 @@ export const store = createStore<State>({
       }
     },
     clearBoard(state: State) {
-      state.cells.forEach((cell) => (cell.player = ''));
+      state.cells.forEach((cell) => {
+        cell.player = '';
+        cell.style = '';
+      });
     },
   },
   actions: {

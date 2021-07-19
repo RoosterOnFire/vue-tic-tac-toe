@@ -1,7 +1,7 @@
 <template>
   <div class="header">
-    <p class="header__counter">Player X: {{ xWinCount }}</p>
-    <p class="header__counter">Player O: {{ oWinCount }}</p>
+    <p class="header__counter">X: {{ xWinCount }}</p>
+    <p class="header__counter">O: {{ oWinCount }}</p>
     <button @click="resetGame" class="header__reset" type="button">
       Reset
     </button>

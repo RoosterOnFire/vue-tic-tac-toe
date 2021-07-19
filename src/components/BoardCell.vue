@@ -1,5 +1,10 @@
 <template>
-  <button :id="cell.id.toString()" @click="updateCell" type="button">
+  <button
+    :id="cell.id.toString()"
+    :class="cell.style"
+    @click="updateCell"
+    type="button"
+  >
     {{ cell.player }}
   </button>
 </template>
