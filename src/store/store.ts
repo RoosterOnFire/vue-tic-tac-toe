@@ -9,6 +9,17 @@ import { State, Player, Cell } from './types';
 
 export const key: InjectionKey<Store<State>> = Symbol();
 
+const windConditions = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+];
+
 export const store = createStore<State>({
   plugins: [createLogger()],
   state: {
@@ -48,16 +59,6 @@ export const store = createStore<State>({
       });
     },
     updateGameOver(state: State) {
-      const windConditions = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6],
-      ];
       const matchIndex = windConditions
         .map((condition) =>
           condition
@@ -65,21 +66,20 @@ export const store = createStore<State>({
             .every((value) => value.player === state.currentPlayer)
         )
         .indexOf(true);
+      const isBoardFilled = state.cells.every((cell) => cell.player !== '');
 
-      state.isGameOver = matchIndex !== -1;
+      state.isGameOver = matchIndex !== -1 || isBoardFilled;
 
-      if (!state.isGameOver) {
-        return;
-      }
+      if (state.isGameOver && !isBoardFilled) {
+        windConditions[matchIndex].map(
+          (index) => (state.cells[index].style = 'board__cell--win')
+        );
 
-      windConditions[matchIndex].map(
-        (index) => (state.cells[index].style = 'board__cell--win')
-      );
-
-      if (state.currentPlayer === 'X') {
-        state.playerXWinCount += 1;
-      } else if (state.currentPlayer === 'O') {
-        state.playerOWinCount += 1;
+        if (state.currentPlayer === 'X') {
+          state.playerXWinCount += 1;
+        } else if (state.currentPlayer === 'O') {
+          state.playerOWinCount += 1;
+        }
       }
     },
     clearBoard(state: State) {
@@ -92,28 +92,25 @@ export const store = createStore<State>({
   actions: {
     updateGame({ commit, state }, cell: Cell) {
       if (state.isGameOver) {
+        // prevent futher action after game over
         return;
       }
 
       commit('updateCell', cell);
-
       commit('updateGameOver');
 
-      if (!state.isGameOver) {
-        commit('switchPlayer');
-      } else {
+      if (state.isGameOver) {
         setTimeout(() => {
           (state.isGameOver = false), commit('clearBoard');
         }, 1700);
+      } else {
+        commit('switchPlayer');
       }
     },
     reset({ commit, state }) {
       state.currentPlayer = '';
-
       state.playerOWinCount = 0;
-
       state.playerXWinCount = 0;
-
       state.isGameOver = false;
 
       commit('clearBoard');

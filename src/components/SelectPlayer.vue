@@ -1,36 +1,34 @@
 <template>
-  <main class="select-player">
+  <div class="select-player">
     <button
       class="select-player__button"
       type="button"
       @click="selectPlayer('X')"
     >
-      X
+      {{ "X" }}
     </button>
     <button
       class="select-player__button"
       type="button"
       @click="selectPlayer('O')"
     >
-      O
+      {{ "O" }}
     </button>
-  </main>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { useStore } from "../store/store";
+import { useStore } from "@/store/store";
 
 export default defineComponent({
   setup() {
     const store = useStore();
 
-    function selectPlayer(selected: "X" | "O") {
-      store.commit("selectPlayer", selected);
-    }
-
     return {
-      selectPlayer,
+      selectPlayer(selected: "X" | "O") {
+        store.commit("selectPlayer", selected);
+      },
     };
   },
 });

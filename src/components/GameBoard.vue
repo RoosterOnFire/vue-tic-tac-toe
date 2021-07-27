@@ -8,8 +8,8 @@
 
 <script lang="ts">
 import { computed, defineComponent } from "vue";
-import { useStore } from "../store/store";
-import BoardCell from "./BoardCell.vue";
+import { useStore } from "@/store/store";
+import BoardCell from "@/components/BoardCell.vue";
 
 export default defineComponent({
   components: {

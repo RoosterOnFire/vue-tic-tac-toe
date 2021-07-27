@@ -3,14 +3,14 @@
     <p class="header__counter">X: {{ xWinCount }}</p>
     <p class="header__counter">O: {{ oWinCount }}</p>
     <button @click="resetGame" class="header__reset" type="button">
-      Reset
+      {{ "Reset" }}
     </button>
   </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from "vue";
-import { useStore } from "../store/store";
+import { useStore } from "@/store/store";
 
 export default defineComponent({
   setup() {

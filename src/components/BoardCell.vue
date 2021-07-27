@@ -10,9 +10,9 @@
 </template>
 
 <script lang="ts">
-import { Cell } from "../store/types";
+import { Cell } from "@/store/types";
 import { defineComponent, PropType, toRefs } from "vue";
-import { useStore } from "../store/store";
+import { useStore } from "@/store/store";
 
 export default defineComponent({
   props: {
@@ -25,13 +25,11 @@ export default defineComponent({
     const { cell } = toRefs(props);
     const store = useStore();
 
-    function updateCell() {
-      store.dispatch("updateGame", cell.value);
-    }
-
     return {
       cell,
-      updateCell,
+      updateCell() {
+        store.dispatch("updateGame", cell.value);
+      },
     };
   },
 });

@@ -11,6 +11,7 @@
     "vuex": "^4.0.1"
   },
   "devDependencies": {
+    "@types/node": "^16.4.3",
     "@vitejs/plugin-vue": "^1.2.3",
     "@vue/compiler-sfc": "^3.0.5",
     "autoprefixer": "^10.2.6",
