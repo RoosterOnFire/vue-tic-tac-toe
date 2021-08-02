@@ -12,6 +12,7 @@ export type State = {
   currentPlayer: Player;
   playerXWinCount: number;
   playerOWinCount: number;
+  isGameRunning: boolean;
   isGameOver: boolean;
   cells: Cells;
 };

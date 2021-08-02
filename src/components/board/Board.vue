@@ -1,20 +1,18 @@
 <template>
-  <main class="board">
+  <div class="board">
     <template v-for="cell in cells" :key="cell.id">
-      <BoardCell :cell="cell" class="board__cell" />
+      <Cell :cell="cell" class="board__cell" />
     </template>
-  </main>
+  </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from "vue";
 import { useStore } from "@/store/store";
-import BoardCell from "@/components/BoardCell.vue";
+import Cell from "@/components/board/Cell.vue";
 
 export default defineComponent({
-  components: {
-    BoardCell,
-  },
+  components: { Cell },
   setup() {
     const store = useStore();
 

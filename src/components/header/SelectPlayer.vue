@@ -4,28 +4,41 @@
       class="select-player__button"
       type="button"
       @click="selectPlayer('X')"
+      :disabled="isGameRunning"
     >
-      {{ "X" }}
+      {{ buttonXText }}
     </button>
     <button
       class="select-player__button"
       type="button"
       @click="selectPlayer('O')"
+      :disabled="isGameRunning"
     >
-      {{ "O" }}
+      {{ buttonOText }}
     </button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
 import { useStore } from "@/store/store";
 
 export default defineComponent({
   setup() {
     const store = useStore();
 
+    const buttonXText = computed(
+      () => `X ${store.state.playerXWinCount || "-"}`
+    );
+    const buttonOText = computed(
+      () => `O ${store.state.playerOWinCount || "-"}`
+    );
+    const isGameRunning = computed(() => store.state.isGameRunning);
+
     return {
+      buttonXText,
+      buttonOText,
+      isGameRunning,
       selectPlayer(selected: "X" | "O") {
         store.commit("selectPlayer", selected);
       },

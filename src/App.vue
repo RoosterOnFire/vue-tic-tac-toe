@@ -1,22 +1,21 @@
 <template>
   <Header />
-  <div class="app__divider"></div>
-  <GameBoard v-if="isGameRunning" />
-  <SelectPlayer v-else />
+  <Board />
+  <Footer />
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from "vue";
 import { useStore } from "@/store/store";
-import Header from "@/components/Header.vue";
-import GameBoard from "@/components/GameBoard.vue";
-import SelectPlayer from "@/components/SelectPlayer.vue";
+import Header from "@/components/header/Header.vue";
+import Board from "@/components/board/Board.vue";
+import Footer from "@/components/footer/Footer.vue";
 
 export default defineComponent({
   components: {
     Header,
-    SelectPlayer,
-    GameBoard,
+    Board,
+    Footer,
   },
   setup() {
     const store = useStore();

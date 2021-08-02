@@ -23,9 +23,10 @@ const windConditions = [
 export const store = createStore<State>({
   plugins: [createLogger()],
   state: {
-    currentPlayer: '',
+    currentPlayer: 'X',
     playerOWinCount: 0,
     playerXWinCount: 0,
+    isGameRunning: false,
     isGameOver: false,
     cells: [
       { id: 0, player: '', style: '' },
@@ -82,11 +83,14 @@ export const store = createStore<State>({
         }
       }
     },
-    clearBoard(state: State) {
+    resetBoard(state: State) {
       state.cells.forEach((cell) => {
         cell.player = '';
         cell.style = '';
       });
+      state.currentPlayer = 'X';
+      state.isGameRunning = false;
+      state.isGameOver = false;
     },
   },
   actions: {
@@ -95,25 +99,21 @@ export const store = createStore<State>({
         // prevent futher action after game over
         return;
       }
+      state.isGameRunning = true;
 
       commit('updateCell', cell);
       commit('updateGameOver');
 
       if (state.isGameOver) {
         setTimeout(() => {
-          (state.isGameOver = false), commit('clearBoard');
+          (state.isGameOver = false), commit('resetBoard');
         }, 1700);
       } else {
         commit('switchPlayer');
       }
     },
-    reset({ commit, state }) {
-      state.currentPlayer = '';
-      state.playerOWinCount = 0;
-      state.playerXWinCount = 0;
-      state.isGameOver = false;
-
-      commit('clearBoard');
+    reset({ commit }) {
+      commit('resetBoard');
     },
   },
 });
