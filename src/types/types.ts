@@ -3,7 +3,7 @@ export type Player = '' | 'X' | 'O';
 export type Cell = {
   id: number;
   player: Player;
-  style: string;
+  hit: boolean;
 };
 
 export type Cells = Cell[];
@@ -15,4 +15,5 @@ export type State = {
   isGameRunning: boolean;
   isGameOver: boolean;
   cells: Cells;
+  isAIActivate: boolean;
 };

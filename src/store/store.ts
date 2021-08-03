@@ -5,20 +5,11 @@ import {
   Store,
   createLogger,
 } from 'vuex';
-import { State, Player, Cell } from './types';
+import { State, Player, Cell } from '@/types/types';
+import { getAIMove } from '@/ai/AI';
+import { findWinCondition, winConditions } from '@/misc/misc';
 
 export const key: InjectionKey<Store<State>> = Symbol();
-
-const windConditions = [
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  [0, 4, 8],
-  [2, 4, 6],
-];
 
 export const store = createStore<State>({
   plugins: [createLogger()],
@@ -28,16 +19,17 @@ export const store = createStore<State>({
     playerXWinCount: 0,
     isGameRunning: false,
     isGameOver: false,
+    isAIActivate: true,
     cells: [
-      { id: 0, player: '', style: '' },
-      { id: 1, player: '', style: '' },
-      { id: 2, player: '', style: '' },
-      { id: 3, player: '', style: '' },
-      { id: 4, player: '', style: '' },
-      { id: 5, player: '', style: '' },
-      { id: 6, player: '', style: '' },
-      { id: 7, player: '', style: '' },
-      { id: 8, player: '', style: '' },
+      { id: 0, player: '', hit: false },
+      { id: 1, player: '', hit: false },
+      { id: 2, player: '', hit: false },
+      { id: 3, player: '', hit: false },
+      { id: 4, player: '', hit: false },
+      { id: 5, player: '', hit: false },
+      { id: 6, player: '', hit: false },
+      { id: 7, player: '', hit: false },
+      { id: 8, player: '', hit: false },
     ],
   },
   getters: {
@@ -53,27 +45,21 @@ export const store = createStore<State>({
       state.currentPlayer = state.currentPlayer === 'X' ? 'O' : 'X';
     },
     updateCell(state: State, payloadCell: Cell) {
-      state.cells.forEach((cell) => {
-        if (payloadCell.id === cell.id && payloadCell.player === '') {
-          cell.player = state.currentPlayer;
-        }
-      });
+      const foundCell = state.cells.find((cell) => payloadCell.id === cell.id);
+
+      if (foundCell) {
+        foundCell.player = state.currentPlayer;
+      }
     },
     updateGameOver(state: State) {
-      const matchIndex = windConditions
-        .map((condition) =>
-          condition
-            .map((key) => state.cells[key])
-            .every((value) => value.player === state.currentPlayer)
-        )
-        .indexOf(true);
+      const matchIndex = findWinCondition(state.cells, state.currentPlayer);
       const isBoardFilled = state.cells.every((cell) => cell.player !== '');
 
       state.isGameOver = matchIndex !== -1 || isBoardFilled;
 
       if (state.isGameOver && !isBoardFilled) {
-        windConditions[matchIndex].map(
-          (index) => (state.cells[index].style = 'board__cell--win')
+        winConditions[matchIndex].map(
+          (index) => (state.cells[index].hit = true)
         );
 
         if (state.currentPlayer === 'X') {
@@ -86,7 +72,7 @@ export const store = createStore<State>({
     resetBoard(state: State) {
       state.cells.forEach((cell) => {
         cell.player = '';
-        cell.style = '';
+        cell.hit = false;
       });
       state.currentPlayer = 'X';
       state.isGameRunning = false;
@@ -95,25 +81,47 @@ export const store = createStore<State>({
   },
   actions: {
     updateGame({ commit, state }, cell: Cell) {
-      if (state.isGameOver) {
-        // prevent futher action after game over
-        return;
-      }
       state.isGameRunning = true;
 
       commit('updateCell', cell);
       commit('updateGameOver');
 
       if (state.isGameOver) {
-        setTimeout(() => {
-          (state.isGameOver = false), commit('resetBoard');
-        }, 1700);
-      } else {
-        commit('switchPlayer');
+        setTimeout(() => commit('resetBoard'), 1700);
+        return;
       }
+
+      if (state.isAIActivate) {
+        commit('switchPlayer');
+
+        const aiMove = getAIMove(state.cells, state.currentPlayer);
+
+        const targetCell = state.cells.find((cell) => cell.id === aiMove);
+
+        if (targetCell) {
+          commit('updateCell', targetCell);
+          commit('updateGameOver');
+
+          if (state.isGameOver) {
+            setTimeout(() => commit('resetBoard'), 1700);
+          }
+        }
+      }
+
+      commit('switchPlayer');
+    },
+    toggleAI({ state }) {
+      state.isAIActivate = !state.isAIActivate;
     },
     reset({ commit }) {
       commit('resetBoard');
+    },
+    resetFull({ commit, state }) {
+      commit('resetBoard');
+
+      state.playerXWinCount = 0;
+      state.playerOWinCount = 0;
+      state.isAIActivate = true;
     },
   },
 });

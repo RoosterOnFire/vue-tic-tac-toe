@@ -1,5 +1,5 @@
 <template>
-  <button @click="resetGame" class="header__reset" type="button">
+  <button @click="resetGame" @dblclick="resetFullGame" type="button">
     {{ "Reset Game" }}
   </button>
 </template>
@@ -15,6 +15,9 @@ export default defineComponent({
     return {
       resetGame() {
         store.dispatch("reset");
+      },
+      resetFullGame() {
+        store.dispatch("resetFull");
       },
     };
   },

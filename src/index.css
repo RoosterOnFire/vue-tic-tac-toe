@@ -13,10 +13,6 @@ body {
 .header {
 }
 
-.header__reset {
-  @apply border border-gray-500 text-xl rounded-lg p-4;
-}
-
 .select-player {
   @apply flex justify-evenly;
 }
@@ -35,4 +31,16 @@ body {
 
 .board__cell--win {
   @apply bg-green-500;
+}
+
+.footer {
+  @apply flex justify-around;
+}
+
+.footer__ai {
+  @apply border border-gray-500 text-xl rounded-lg p-4;
+}
+
+.footer__reset {
+  @apply border border-gray-500 text-xl rounded-lg p-4;
 }

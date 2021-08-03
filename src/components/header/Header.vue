@@ -1,16 +1,17 @@
 <template>
   <div class="header">
     <SelectPlayer />
+    <CurrentPlayer />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { useStore } from "@/store/store";
-import SelectPlayer from "@/components/header/SelectPlayer.vue";
+import CurrentPlayer from "./CurrentPlayer.vue";
+import SelectPlayer from "./SelectPlayer.vue";
 
 export default defineComponent({
-  components: { SelectPlayer },
+  components: { SelectPlayer, CurrentPlayer },
   setup() {},
 });
 </script>

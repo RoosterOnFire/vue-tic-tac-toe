@@ -1,15 +1,17 @@
 <template>
   <div class="footer">
-    <ResetButton />
+    <AIButton class="footer__ai" />
+    <ResetButton class="footer__reset" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import ResetButton from "@/components/footer/ResetButton.vue";
+import AIButton from "./AIButton.vue";
+import ResetButton from "./ResetButton.vue";
 
 export default defineComponent({
-  components: { ResetButton },
+  components: { ResetButton, AIButton },
   setup() {},
 });
 </script>

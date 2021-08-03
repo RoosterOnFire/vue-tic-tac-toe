@@ -1,7 +1,7 @@
 <template>
   <button
     :id="cell.id.toString()"
-    :class="cell.style"
+    :disabled="isDisabled"
     @click="updateCell"
     type="button"
   >
@@ -10,8 +10,8 @@
 </template>
 
 <script lang="ts">
-import { Cell } from "@/store/types";
-import { defineComponent, PropType, toRefs } from "vue";
+import { Cell } from "@/types/types";
+import { defineComponent, PropType, toRefs, computed } from "vue";
 import { useStore } from "@/store/store";
 
 export default defineComponent({
@@ -27,6 +27,7 @@ export default defineComponent({
 
     return {
       cell,
+      isDisabled: computed(() => !!cell.value.player || store.state.isGameOver),
       updateCell() {
         store.dispatch("updateGame", cell.value);
       },
