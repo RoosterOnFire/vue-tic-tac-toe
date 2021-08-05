@@ -15,3 +15,17 @@ export default defineComponent({
   setup() {},
 });
 </script>
+
+<style>
+.footer {
+  @apply flex justify-around;
+}
+
+.footer__ai {
+  @apply border border-gray-500 text-xl rounded-lg p-4;
+}
+
+.footer__reset {
+  @apply border border-gray-500 text-xl rounded-lg p-4;
+}
+</style>

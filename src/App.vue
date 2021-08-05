@@ -27,4 +27,8 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style>
+.app {
+  @apply container max-w-md m-auto p-4 text-center shadow-2xl;
+}
+</style>

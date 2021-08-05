@@ -46,3 +46,13 @@ export default defineComponent({
   },
 });
 </script>
+
+<style>
+.select-player {
+  @apply flex justify-evenly;
+}
+
+.select-player__button {
+  @apply border border-gray-500 text-4xl rounded-lg p-4;
+}
+</style>
