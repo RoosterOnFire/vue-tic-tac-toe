@@ -27,8 +27,12 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style lang="postcss">
 .app {
-  @apply container max-w-md m-auto p-4 text-center shadow-2xl;
+  @apply container;
+  @apply m-auto p-4;
+  @apply max-w-md;
+  @apply text-center;
+  @apply shadow-2xl;
 }
 </style>

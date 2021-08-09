@@ -3,5 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-gray-100 h-screen flex flex-col justify-center items-center;
+  @apply flex flex-col justify-center items-center;
+  @apply h-screen;
+  @apply bg-gray-100;
 }

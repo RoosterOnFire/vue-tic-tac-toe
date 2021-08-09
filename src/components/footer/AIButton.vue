@@ -1,5 +1,5 @@
 <template>
-  <button @click="toggleAi" type="button">
+  <button type="button" @click="toggleAi">
     {{ message }}
   </button>
 </template>

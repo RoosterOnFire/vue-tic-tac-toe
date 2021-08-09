@@ -3,16 +3,16 @@
     <button
       class="select-player__button"
       type="button"
-      @click="selectPlayer('X')"
       :disabled="isGameRunning"
+      @click="selectPlayer('X')"
     >
       {{ buttonXText }}
     </button>
     <button
       class="select-player__button"
       type="button"
-      @click="selectPlayer('O')"
       :disabled="isGameRunning"
+      @click="selectPlayer('O')"
     >
       {{ buttonOText }}
     </button>
@@ -47,12 +47,14 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style lang="postcss">
 .select-player {
   @apply flex justify-evenly;
 }
 
 .select-player__button {
-  @apply border border-gray-500 text-4xl rounded-lg p-4;
+  @apply p-4;
+  @apply text-4xl;
+  @apply border border-gray-500 rounded-lg;
 }
 </style>

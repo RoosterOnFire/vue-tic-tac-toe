@@ -2,8 +2,8 @@
   <div class="board">
     <template v-for="cell in cells" :key="cell.id">
       <Cell
-        :cell="cell"
         class="board__cell"
+        :cell="cell"
         :class="{ 'board__cell--win': cell.hit }"
       />
     </template>
@@ -27,7 +27,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style lang="postcss">
 .board {
   @apply grid grid-rows-3 grid-cols-3 my-4;
 }

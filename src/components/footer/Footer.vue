@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
-    <AIButton class="footer__ai" />
-    <ResetButton class="footer__reset" />
+    <AIButton class="footer__button" />
+    <ResetButton class="footer__button" />
   </div>
 </template>
 
@@ -16,16 +16,14 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style lang="postcss">
 .footer {
   @apply flex justify-around;
 }
 
-.footer__ai {
-  @apply border border-gray-500 text-xl rounded-lg p-4;
-}
-
-.footer__reset {
-  @apply border border-gray-500 text-xl rounded-lg p-4;
+.footer__button {
+  @apply p-4;
+  @apply text-xl;
+  @apply border border-gray-500 rounded-lg;
 }
 </style>

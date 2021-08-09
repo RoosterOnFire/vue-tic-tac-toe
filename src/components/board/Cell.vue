@@ -1,9 +1,9 @@
 <template>
   <button
+    type="button"
     :id="cell.id.toString()"
     :disabled="isDisabled"
     @click="updateCell"
-    type="button"
   >
     {{ cell.player }}
   </button>
