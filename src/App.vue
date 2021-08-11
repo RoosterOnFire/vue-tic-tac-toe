@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from "vue";
-import { useStore } from "@/store/store";
+import { useStore } from "@/misc/store";
 import Header from "@/components/header/Header.vue";
 import Board from "@/components/board/Board.vue";
 import Footer from "@/components/footer/Footer.vue";

@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from "vue";
-import { useStore } from "@/store/store";
+import { useStore } from "@/misc/store";
 import Cell from "./Cell.vue";
 
 export default defineComponent({

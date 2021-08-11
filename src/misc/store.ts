@@ -5,8 +5,8 @@ import {
   Store,
   createLogger,
 } from 'vuex';
-import { State, Player, Cell } from '@/types/types';
-import { getAIMove } from '@/ai/AI';
+import { State, Player, Cell } from '@/misc/types';
+import { getAIMove } from '@/ai/aiMain';
 import { findWinCondition, winConditions } from '@/misc/misc';
 
 export const key: InjectionKey<Store<State>> = Symbol();

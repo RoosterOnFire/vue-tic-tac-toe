@@ -1,4 +1,4 @@
-import { Cells, Player } from '@/types/types';
+import { Cells, Player } from '@/misc/types';
 
 export const winConditions = [
   [0, 1, 2],

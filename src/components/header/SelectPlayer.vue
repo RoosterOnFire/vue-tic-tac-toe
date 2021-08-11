@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import { defineComponent, computed } from "vue";
-import { useStore } from "@/store/store";
+import { useStore } from "@/misc/store";
 
 export default defineComponent({
   setup() {

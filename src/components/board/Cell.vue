@@ -10,9 +10,9 @@
 </template>
 
 <script lang="ts">
-import { Cell } from "@/types/types";
+import { Cell } from "@/misc/types";
 import { defineComponent, PropType, toRefs, computed } from "vue";
-import { useStore } from "@/store/store";
+import { useStore } from "@/misc/store";
 
 export default defineComponent({
   props: {

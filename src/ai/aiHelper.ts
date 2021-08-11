@@ -1,4 +1,4 @@
-import { Cells, Player } from '@/types/types';
+import { Cells, Player } from '@/misc/types';
 import { cloneDeep } from 'lodash';
 
 export function findEmptyCells(cells: Cells): number[] {
