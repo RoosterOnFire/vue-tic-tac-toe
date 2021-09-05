@@ -1,8 +1,10 @@
 <template>
   <button
     type="button"
+    class="board-cell"
     :id="cell.id.toString()"
     :disabled="isDisabled"
+    :class="{ 'board-cell--win': cell.hit }"
     @click="updateCell"
   >
     {{ cell.player }}
@@ -35,3 +37,13 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="postcss">
+.board-cell {
+  @apply bg-gray-50 border border-gray-500 h-24 text-4xl;
+}
+
+.board-cell--win {
+  @apply bg-green-500;
+}
+</style>

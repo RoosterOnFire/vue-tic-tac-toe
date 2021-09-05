@@ -23,6 +23,7 @@ export default defineComponent({
 .button {
   @apply p-4;
   @apply text-xl;
-  @apply border border-gray-500 rounded-lg;
+  @apply bg-gray-50 border border-gray-500 rounded-lg focus:ring-2 focus:ring-gray-400;
+  @apply focus:outline-none;
 }
 </style>
