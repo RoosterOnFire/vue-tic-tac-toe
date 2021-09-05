@@ -5,9 +5,9 @@ import {
   Store,
   createLogger,
 } from 'vuex';
-import { State, Player, Cell } from '@/misc/types';
-import { getAIMove } from '@/ai/aiMain';
-import { findWinCondition, winConditions } from '@/misc/misc';
+import { State, Player, Cell } from '@/type/Types';
+import { getAIMove } from '@/helpers/AIMain';
+import { findWinCondition, winConditions } from '@/helpers/Helpers';
 
 export const key: InjectionKey<Store<State>> = Symbol();
 
@@ -19,7 +19,8 @@ export const store = createStore<State>({
     playerXWinCount: 0,
     isGameRunning: false,
     isGameOver: false,
-    isAIActivate: true,
+    isAIActive: true,
+    isAiThinking: false,
     cells: [
       { id: 0, player: '', hit: false },
       { id: 1, player: '', hit: false },
@@ -35,6 +36,26 @@ export const store = createStore<State>({
   getters: {
     isPlayerSelected(state: State): boolean {
       return state.currentPlayer !== '';
+    },
+    isGameRunning(state: State): boolean {
+      return state.isGameRunning;
+    },
+    isBoardCellDisabled:
+      (state: State) =>
+      (cell: Cell): boolean => {
+        return !!cell.player || state.isAiThinking || state.isGameOver;
+      },
+    currentPlayer(state: State): string {
+      return `Current player: ${state.currentPlayer}`;
+    },
+    playerXWinCount(state: State): string {
+      return `X ${state.playerXWinCount || '-'}`;
+    },
+    playerOWinCount(state: State): string {
+      return `O ${state.playerOWinCount || '-'}`;
+    },
+    aiStatus(state: State): string {
+      return `AI: ${state.isAIActive ? 'ON' : 'OFF'}`;
     },
   },
   mutations: {
@@ -91,7 +112,8 @@ export const store = createStore<State>({
         return;
       }
 
-      if (state.isAIActivate) {
+      if (state.isAIActive) {
+        state.isAIActive = true;
         commit('switchPlayer');
 
         const aiMove = getAIMove(state.cells, state.currentPlayer);
@@ -106,12 +128,14 @@ export const store = createStore<State>({
             setTimeout(() => commit('resetBoard'), 1700);
           }
         }
+
+        state.isAiThinking = false;
       }
 
       commit('switchPlayer');
     },
     toggleAI({ state }) {
-      state.isAIActivate = !state.isAIActivate;
+      state.isAIActive = !state.isAIActive;
     },
     reset({ commit }) {
       commit('resetBoard');
@@ -121,7 +145,7 @@ export const store = createStore<State>({
 
       state.playerXWinCount = 0;
       state.playerOWinCount = 0;
-      state.isAIActivate = true;
+      state.isAIActive = true;
     },
   },
 });

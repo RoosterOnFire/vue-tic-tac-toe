@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { useStore } from "@/misc/store";
+import { useStore } from "@/store/Store";
 import { computed, defineComponent } from "vue";
 
 export default defineComponent({
@@ -11,7 +11,7 @@ export default defineComponent({
     const store = useStore();
 
     return {
-      message: computed(() => `Current player: ${store.state.currentPlayer}`),
+      message: computed(() => store.getters.currentPlayer),
     };
   },
 });

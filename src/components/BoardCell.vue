@@ -10,9 +10,9 @@
 </template>
 
 <script lang="ts">
-import { Cell } from "@/misc/types";
+import { Cell } from "@/type/Types";
 import { defineComponent, PropType, toRefs, computed } from "vue";
-import { useStore } from "@/misc/store";
+import { useStore } from "@/store/Store";
 
 export default defineComponent({
   props: {
@@ -27,7 +27,7 @@ export default defineComponent({
 
     return {
       cell,
-      isDisabled: computed(() => !!cell.value.player || store.state.isGameOver),
+      isDisabled: computed(() => store.getters.isBoardCellDisabled(cell.value)),
       updateCell() {
         store.dispatch("updateGame", cell.value);
       },

@@ -1,5 +1,7 @@
 export type Player = '' | 'X' | 'O';
 
+export type SelectedPlayer = 'X' | 'O';
+
 export type Cell = {
   id: number;
   player: Player;
@@ -15,5 +17,6 @@ export type State = {
   isGameRunning: boolean;
   isGameOver: boolean;
   cells: Cells;
-  isAIActivate: boolean;
+  isAIActive: boolean;
+  isAiThinking: boolean;
 };

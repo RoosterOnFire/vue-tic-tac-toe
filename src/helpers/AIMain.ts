@@ -1,7 +1,11 @@
-import { Cells, Player } from '@/misc/types';
+import { Cells, Player } from '@/type/Types';
 import { cloneDeep, maxBy, minBy, max as _max, min as _min } from 'lodash';
-import { findWinCondition } from '@/misc/misc';
-import { getNextPlayer, generateNextState, findEmptyCells } from './aiHelper';
+import {
+  findWinCondition,
+  getNextPlayer,
+  generateNextState,
+  findEmptyCells,
+} from '@/helpers/Helpers';
 
 export function getAIMove(cells: Cells, player: Player) {
   const result = search(cells, player);

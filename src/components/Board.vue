@@ -2,9 +2,9 @@
   <div class="board">
     <template v-for="cell in cells" :key="cell.id">
       <Cell
-        class="board__cell"
+        class="board-cell"
         :cell="cell"
-        :class="{ 'board__cell--win': cell.hit }"
+        :class="{ 'board-cell--win': cell.hit }"
       />
     </template>
   </div>
@@ -12,8 +12,8 @@
 
 <script lang="ts">
 import { computed, defineComponent } from "vue";
-import { useStore } from "@/misc/store";
-import Cell from "./Cell.vue";
+import { useStore } from "@/store/Store";
+import Cell from "@/components/BoardCell.vue";
 
 export default defineComponent({
   components: { Cell },
@@ -32,11 +32,11 @@ export default defineComponent({
   @apply grid grid-rows-3 grid-cols-3 my-4;
 }
 
-.board__cell {
+.board-cell {
   @apply border border-gray-500 h-24 text-4xl;
 }
 
-.board__cell--win {
+.board-cell--win {
   @apply bg-green-500;
 }
 </style>

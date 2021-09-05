@@ -1,19 +1,24 @@
 <template>
-  <Header />
+  <div class="header">
+    <AppSelectPlayer />
+    <AppCurrentPlayer />
+  </div>
   <Board />
   <Footer />
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from "vue";
-import { useStore } from "@/misc/store";
-import Header from "@/components/header/Header.vue";
-import Board from "@/components/board/Board.vue";
-import Footer from "@/components/footer/Footer.vue";
+import { useStore } from "@/store/Store";
+import AppCurrentPlayer from "@/components/AppCurrentPlayer.vue";
+import AppSelectPlayer from "@/components/AppSelectPlayer.vue";
+import Board from "@/components/Board.vue";
+import Footer from "@/components/Footer.vue";
 
 export default defineComponent({
   components: {
-    Header,
+    AppCurrentPlayer,
+    AppSelectPlayer,
     Board,
     Footer,
   },
@@ -28,6 +33,16 @@ export default defineComponent({
 </script>
 
 <style lang="postcss">
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply flex flex-col justify-center items-center;
+  @apply h-screen;
+  @apply bg-gray-100;
+}
+
 .app {
   @apply container;
   @apply m-auto p-4;
